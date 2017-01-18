@@ -1,0 +1,44 @@
+Protocol Packets:
+
+PR
+Pitch-Roll
+"PR;<pitch>;<roll>|"
+pitch, roll από -100 έως 100
+
+Y
+Yaw
+"Y;<yaw>|"
+yaw από -50 έως 50
+
+Τ
+Throttle
+"T;<throttle>|"
+throttle από 0 έως 100
+
+H_SH
+Handshake με το τηλεχειρηστήριο.
+"H_SH|"
+
+D_CP
+Απόζευξη (Decouple) από το τηλεχειρηστήριο.
+"D_CP|"
+
+PING
+Ping από ή προς το χειρηστήριο.
+"PING|"
+
+MFA
+Motor feedback - Activate
+"MFA|"
+
+MFI
+Motor feedback - Inactive
+"MFI|"
+
+MF
+Motor feedback data
+"MF;<rpm#1 %>;<rpm#2 %>;<rpm#3 %>;<rpm#4 %>|";
+
+BAD
+στέλνεται όταν τα δεδομένα δεν έγιναν κατανοητά.
+"BAD;<unresolved_data>|"

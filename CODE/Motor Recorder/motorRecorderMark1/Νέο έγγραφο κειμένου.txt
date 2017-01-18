@@ -1,0 +1,4 @@
+
+MIN ESC 1200;
+MAX ESC 1740;
+--->M = 1kg, phi = 45 deg

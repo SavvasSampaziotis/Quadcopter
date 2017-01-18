@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 TRANSITIONAL//EN">
+<html>
+
+	<head>
+<meta name=Titel content="Prop Calculator Manual">
+<meta name="keywords" content="propeller calculator, beiwerte, ct, cp, ca, cw, Reynolds, Re, Profil, Propellerprofil"><meta http-equiv=Content-Type content="text/html; charset=utf-8">		<title>PropCalc Manual</title>
+	</head>
+	<body>
+<body bgcolor=white><a name="index"></a>
+<h2>PropCalc 3.0 Manual</h2>
+
+<p><font size="+1"><b>Index</b></font></p>
+<font size="-1">
+<p><a href="#general">General</a></p>
+<p><a href="#working">Using PropCalc</a></p>
+<p><a href="#propeller">The Propeller Window</a></p>
+<p><a href="#profile">The Airfoil Window</a></p>
+<p><a href="#polare">The Polar Diagram</a></p>
+<p><a href="#preferences">Preferences</a></p>
+</FONT>
+<hr>
+<br>
+<p><a name="general"><font size="+1"><b> General</b></font></a></p>
+
+<p>PropCalc computes the performance data of propellers with a given geometry, notably in-flight thrust and power drain across the utilizable airspeed range. PropCalc comes with a database that contains the polars of current airfoils as well as geometrical data of a number of propellers.</p> 
+
+<p>The user may amend and enlarge the database. All data are editable, so that PropCalc may be utilized as well for designing propellers.</p>
+<br>
+
+<p><a name="working"><font size="+1"><b>Using PropCalc</b></font></a></p>
+<p><img src="PCScreens_en/Main.jpg" alt="Main window"></p>
+
+<p>Select a propeller from the popup menu list in the main application window. Enter the desired rpm in the edit field next to the popup menu and then press the Enter/Return key. Holding the left mouse button and dragging the mouse cursor vertically anywhere in the graph area will also change the rpm setting.<p>
+
+<p>PropCalc computes the results that are displayed in the graphs for the defined rpm over the course of the airspeed, or the rate of advance, respectively, up to the point at which the thrust fades. You may take each of the small graphs to the front, that is have it displayed large-sized, by clicking on it.</p>
+
+<p>The graphs display<br>
+• the thrust, expressed in [Newtons], the power drain P, expressed in [Watts], and the propeller's efficiency Eta over the airspeed v in [meters per second];<br>
+• the real efficiency as opposed to the ideal efficiency, which would be achieved if no loss occurred, over the rate of advance J; the rate of advance is defined as J = 60/rpm * v/D with D = Diameter in [m];<br>
+• the dimension-less thrust coefficient C<sub>T</sub> and its parts cl und cd over the rate of advance J; 'cl' is the lift coefficient, with 'cd' being the drag coefficient.<br>
+• the dimension-less power coefficient C<sub>P</sub> and its parts cl und cd over the rate of advance J.</p>
+
+<p>By clicking on the button 'Result Table' you may open a window that displays the results in the numerical form. The result table can be saved to a 'character separated values' file. If needed, you may modify the decimal separator and the field delimiter used in the .csv file in the '<a href="#preferences">Preferences Window</a>'.</p>
+
+<p>To inspect the propeller data, modify the selected propeller, or enter new propeller data, select 'Propeller' in the application's 'Edit' menu, or double-click on the airfoil drawing in the main window. This will open the propeller window.</p>
+
+<p align="right"><font size="-1"><a href="#index">Index</a></font></p>
+
+<p><a name="propeller"><font size="+1"><b>The Propeller Window</b></font></a></p>
+<p><img src="PCScreens_en/Propeller.jpg" alt="Propeller window"></p>
+
+<p>In the propeller window you may enter or change the propeller's geometry. You may as well select a different airfoil and thus change the propeller's properties. The result of any modification will immediately show up in the diagrams in the main window.</p>
+
+<p>The original data supplied in the database will remain unchanged unless you explicitly order to have the modified data written into the database by clicking on the 'Save' button.</p>
+
+<p>Before experimenting with the propeller data it is a good idea to make a <b>copy</b> of the propeller so as not to lose or change the original data accidentally. To make a copy of the original propeller, hold down the ‘Shift’ key and click on the ‘New’ button in the propeller window. The contents are copied to a new record and the word "copy" is appended to the propeller's name. When entering new data, use a unique name, so that the propeller can be identified in the popup menu lists.</p>
+
+<p>If the diameter is changed, <i>all</i> dimensions will be converted accordingly. This will make up a bigger or a smaller propeller of the same shape. The P/D ratio (pitch/diameter) remains unchanged.</p>
+
+<p>The blade's <b>chord</b> and <b>angle</b> (measured underneath the blade) are defined by nine measurement points along the radius. By varying the <b>chord factor</b> you can examine the effect of different chord sizes on the propeller's performance. You may also enter a <b>blade angle adjust</b> value, thereby skewing the blade and thus changing the pitch within certain limits.</p>
+
+<p>The propeller blade drawing on the right side shows the chord and the blade angle over the course of the radius. This is meant to give a general impression and facilitate detecting input errors. Double-click on the drawing to open another diagram window and have the essential geometrical properties displayed over the course of the radius: the chord, the blade angle, the pitch and the P/D ratio.</p>
+
+<p>A double-click on the airfoil drawing in the upper right edge or selecting 'Airfoil' from the 'Edit' menu will open the airfoil window.</p>
+
+<p align="right"><font size="-1"><a href="#index">Index</a></font></p>
+
+<p><a name="profile"><font size="+1"><b>The Airfoil Window</b></font></a></p>
+<p><img src="PCScreens_en/Profile.jpg" alt="Profile window"></p>
+
+<p>The primary purpose of the airfoil window is for entering the wind tunnel data of new profiles. Up to five polars for different Reynolds numbers can be entered to characterize the airfoil. For the airfoils contained in the database you normally should not modify the polars or the <I>Delta Beta</I> angle. Delta Beta defines the difference between the blade bottom, where the angles are measured, and the airfoil's chord, which is the usual reference for the wind tunnel data.</p>
+
+<p>To inspect the lists of the measured coefficients for different Re numbers, click on the small arrows to the right of the list title. If you click on the downward arrow, the next list will appear, if you click on the upward arrow, the previous list is displayed. If the last list is on display and you click on the downward arrow once again, an empty list will appear, allowing you to enter more wind tunnel data. To make a copy of the original airfoil, hold down the ‘Shift’ key and click on the ‘New’ button in the airfoil window.</p>
+
+<p>To enter a new airfoil, select the empty name file in the popup menu or click on the 'New' button.</p> 
+
+<p>To transfer a profile drawing to the database, drag the icon of a picture file to the space above the popup menu in the airfoil window. The picture will be scaled automatically. PropCalc recognizes the picture file formats JPEG, BMP, PNG, GIF und TIFF.</p>
+
+<p>Enter the Re number, the measured coefficients cl und cd, and the corresponding angle of attack <I>alpha</i> in the edit fields below the list. Then click on 'Add' to have the data assigned to the list. Numbers contained in the list can be made editable by clicking on them.</p>
+
+<p>To add data for another Re number click on the downward arrow, so that the word 'New' appears right to it. PropCalc needs wind tunnel data for at least two Re numbers to perform its computations. Once all data have been entered, click on 'Save' to have the record added to the database.</p>
+
+<p><a name="polare">Double-click on the profile drawing in the airfoil window to open the <b>polar diagram window</b></a>.</p> 
+
+<p><img src="PCScreens_en/Polare.jpg" alt="The Polar Diagram Window"></p>
+
+<p>The diagram on the left displays the lift coefficient cl and the drag coefficient cd for the different Re numbers in the way developed by Otto Lilienthal. On the right you see both coefficients above the course of the angle of attack alpha. If you select a wind tunnel data row in the airfoil window by clicking on it, the corresponding measurements points will be highlighted with red color in the diagram.</p>
+
+<p align="right"><font size="-1"><a href="#index">Index</a></font></p>
+
+<p><a name="preferences"><font size="+1"><b>Preferences</b></font></a></p>
+
+<p><img src="PCScreens_en/Preferences.jpg" alt="Preferences window"></p>
+
+<p>The parameter 'rho' defines the air density that is taken as a basis in all computations. The default value is 1.225kg/m<sup>3</sup>.
+
+<p>The csv delimiter and the decimal separator are used if the results table is written to a .csv file. Usually the colon is the appropriate csv delimiter, while the decimal separator depends on the country setting. If the comma is selected as the csv delimiter, as needed by some Excel versions, the comma cannot be used as the decimal separator.</p> 
+	</body>
+</html>

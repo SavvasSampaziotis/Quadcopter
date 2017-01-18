@@ -1,0 +1,139 @@
+#include <Servo.h>
+#include <Message.h>
+#include <SerialParser.h>
+
+// @MOTORSTART;1|
+/***** STATE MACHINE HEADERS *****/
+#define MOTOR_START_HEADER "MOTORSTART"
+#define FUNCTION_START_HEADER "FUNSTART"
+#define REC_START_HEADER "RECSTART"
+#define SESSION_START_HEADER "SESSION_START_HEADER"
+
+/***** FUNCTION PARAMS HEADERS *****/
+#define COSFUNPARAMS "COSFUNPARAMS"
+#define STEPFUNPARAMS "STEPFUNPARAMS"
+#define RAMPFUNPARAMS "RAMPFUNPARAMS"
+
+#define SERVO_PIN 5
+
+/***** OBJECTS  *****/
+SerialParser *serialParser;
+Message *sessionStart, *motorStart, *recordStart, *functionStart;
+Message *cosFunParams, *stepFunParams, *rampFunParams;
+Servo motorServo;
+
+/***** timing resources *****/
+long  delayTime;
+long calcTime;
+long const samplingTime = 2000;//20; //uSecs
+
+/***** state machine flags  *****/
+boolean sessionStarted, functionStarted, motorRunning, recording;
+
+int motorInput;
+
+/***** funcion params *****/
+
+void setup() {
+  Serial.begin(9600);
+  motorServo.attach(SERVO_PIN);
+  serialParser = new SerialParser();
+  boolean* found;
+  serialParser->addMessage( motorStart = new Message(MOTOR_START_HEADER, 3));   // TODO: 3 args
+  serialParser->addMessage( functionStart = new Message(FUNCTION_START_HEADER, 1));
+  serialParser->addMessage( recordStart = new Message(REC_START_HEADER, 1));
+  serialParser->addMessage( sessionStart = new Message(SESSION_START_HEADER, 1));
+
+  serialParser->addMessage( sessionStart = new Message(COSFUNPARAMS, 3));
+  serialParser->addMessage( sessionStart = new Message(STEPFUNPARAMS, 2));
+  serialParser->addMessage( sessionStart = new Message(RAMPFUNPARAMS, 2));
+
+  //state = DO_NOTHING;
+  functionStarted = motorRunning = recording = false;
+  sessionStarted = true;
+}
+int warmUpIndex = 0;
+int functionIndex = 0;
+
+void loop() {
+  calcTime = micros();
+
+  if ( sessionStarted ) {
+    if ( motorRunning ) {
+      Serial.println( "motor running");
+      warmUpMotor(warmUpIndex);
+      warmUpIndex++;
+    }
+    if ( functionStarted ) {
+      Serial.println( "function started");
+      functionIndex++;
+    }
+    if ( recording ) {
+      Serial.println( "recording");
+    }
+  } else
+    Serial.println( "nothing");
+
+  serialParser->serialEventHandler();
+  processEvents();
+
+  calcTime = micros() - calcTime;
+  delayTime = samplingTime - calcTime;
+  if (delayTime > 0)
+    delay(delayTime);
+  else
+    Serial.println("WARNING: SAMPLING TIME NOT ENOUGH!");
+}
+
+void processEvents() {
+  int temp;
+
+  if (sessionStart->dataUpdated()) {
+    temp = sessionStart->getDataINT(0);
+    sessionStarted = (temp == 1);
+    warmUpIndex = functionIndex = 0;
+    if (sessionStared ==  false) {
+      functionStarted = motorRunning = recording = false;
+      sendMessage("@RECORDING IS STOPED| @MOTOR WARM UP STOPED| @ESC'S INPUT FUNCTION STOPED|");
+    }
+  }
+  if (motorStart->dataUpdated()) {
+    temp = motorStart->getDataINT(0);
+    warmUpIndex = 0;
+    motorRunning = (temp == 1); 
+    if (motorRunning == true )
+      sendMessage("@MOTOR STARTS WARMING UP|");
+    else
+      sendMessage("MOTOR WARM UP IS STOPED|");
+  }
+  if (functionStart->dataUpdated()) {
+    temp = functionStart->getDataINT(0);
+
+    functionStarted = (temp == 1);
+    if (functionStarted == true )
+      sendMessage("@ESC'S INPUT FUNCTION STARTED|");
+    else
+      sendMessage("@ESC'S INPUT IS STOPED|");
+  }
+  if (recordStart->dataUpdated()) {
+    temp = recordStart->getDataINT(0);
+    recording = (temp == 1);
+    if (recording == true )
+      sendMessage("@THRUST AND INPUT ARE BEING RECORDED|");
+    else
+      sendMessage("@RECORDING IS STOPED|");
+  }
+  
+}
+
+void warmUpMotor(int k) {
+  
+}
+
+int function(int k) {
+
+}
+
+void sendMessage(String msg) {
+  Serial.print("@" + msg + "|");
+}
